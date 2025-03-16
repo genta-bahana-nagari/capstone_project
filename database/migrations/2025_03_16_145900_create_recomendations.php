@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('super_admin_users', function (Blueprint $table) {
+        Schema::create('recomendations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('username', 10)->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('wisata_id')->constrained('tempat_wisata')->onDelete('cascade');
+            $table->decimal('score', 5, 2); // Rekomendasi dari ML
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('super_admin_users');
+        Schema::dropIfExists('recomendations');
     }
 };

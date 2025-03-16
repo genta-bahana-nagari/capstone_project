@@ -36,7 +36,7 @@ const TranslatePage: React.FC = () => {
                         ></textarea>
                         {/* Pilihan Bahasa */}
                         <select value={language} onChange={(e) => setLanguage(e.target.value)} className="mt-4 block w-full rounded-md border p-2">
-                            <option value="id">Bahasa Indonesia</option>
+                            <option value="id">Indonesia</option>
                             <option value="es">Spanish</option>
                             <option value="fr">French</option>
                             <option value="de">German</option>

@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_users', function (Blueprint $table) {
+        // Preferensi bahasa yang dipakai user
+        Schema::create('translations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('username', 10)->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('language_preference')->default('id');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_users');
+        Schema::dropIfExists('translations');
     }
 };
