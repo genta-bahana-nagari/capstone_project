@@ -5,7 +5,7 @@ import { useState } from 'react';
 const TranslatePage: React.FC = () => {
     const [text, setText] = useState<string>('');
     const [translatedText, setTranslatedText] = useState<string>('');
-    const [language, setLanguage] = useState<string>('id'); // Default: Bahasa Indonesia
+    const [language, setLanguage] = useState<string>('id');
 
     const handleTranslate = async (): Promise<void> => {
         try {
