@@ -14,7 +14,6 @@ const TranslatePage: React.FC = () => {
             );
             const data = await response.json();
 
-            // Google Translate API mengembalikan array bersarang, jadi kita perlu mengambil hasilnya dengan benar
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             setTranslatedText(data[0].map((t: any) => t[0]).join(' '));
         } catch (error) {
