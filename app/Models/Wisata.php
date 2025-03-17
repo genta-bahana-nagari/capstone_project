@@ -19,6 +19,6 @@ class Wisata extends Model
         'rating_rata_rata',
         'fasilitas',
         'harga_tiket',
-        'jam_operasionl'
+        'jam_operasional'
     ];
 }
