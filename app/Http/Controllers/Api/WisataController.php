@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use app\Models\Wisata;
-use app\Http\Resources\WisataResource;
+use App\Models\Wisata;
+use App\Http\Resources\WisataResource;
 
 class WisataController extends Controller
 {
