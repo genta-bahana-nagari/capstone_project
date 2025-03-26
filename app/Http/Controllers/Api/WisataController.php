@@ -33,16 +33,68 @@ class WisataController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $wisata = Wisata::create([
-            'nama_wisata' => $request->nama_wisata,
-            'deskripsi' => $request->deskripsi,
-            'lokasi' => $request->lokasi,
-            'kategori_wisata' => $request->kategori_wisata,
-            'rating_rata_rata' => $request->rating_rata_rata,
-            'fasilitas' => $request->fasilitas,
-            'harga_tiket' => $request->harga_tiket,
-            'jam_operasional' => $request->jam_operasional
-        ]);
+        $wisata = Wisata::create($request->all());
         return new WisataResource(true, 'Data berhasil ditambahkan!', $wisata);
+    }
+
+    public function show($id)
+    {
+        $wisata = Wisata::find($id);
+
+        if (!$wisata) {
+            return response()->json([
+                'success' => false,
+                'message' => 'wisata tidak ditemukan'
+            ], 404);
+        }
+
+        return new WisataResource(true, 'detail wisata', $wisata);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama_wisata' => 'sometimes|required|string|max:255',
+            'deskripsi' => 'sometimes|required|string',
+            'lokasi' => 'sometimes|required|string|max:255',
+            'kategori_wisata' => 'sometimes|required|string|max:255',
+            'rating_rata_rata' => 'sometimes|required|numeric|min:0|max:5',
+            'fasilitas' => 'nullable|string',
+            'harga_tiket' => 'nullable|numeric|min:0',
+            'jam_operasional' => 'sometimes|required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $wisata = Wisata::find($id);
+
+        if (!$wisata) {
+            return response()->json([
+                'success' => false,
+                'message' => 'wisata tidak ditemukan'
+            ], 404);
+        }
+
+        $wisata->update($request->all());
+
+        return new WisataResource(true, 'wisata berhasil diupdate', $wisata);
+    }
+
+    public function destroy($id)
+    {
+        $wisata = Wisata::find($id);
+
+        if (!$wisata) {
+            return response()->json([
+                'success' => false,
+                'message' => 'wisata tidak ditemukan'
+            ], 404);
+        }
+
+        $wisata->delete();
+
+        return new WisataResource(true, 'wisata berhasil dihapus', $wisata);
     }
 }
