@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Wisata;
-use App\Http\Resources\BaseResource;
+use App\Http\Resources\WisataResource;
 use Illuminate\Support\Facades\Validator;
 
 class WisataController extends Controller
@@ -13,7 +13,7 @@ class WisataController extends Controller
     public function index()
     {
         $wisata = Wisata::latest()->paginate(5);
-        return new BaseResource(true, 'daftar wisata', $wisata);
+        return new WisataResource(true, 'daftar wisata', $wisata);
     }
 
     public function store(Request $request)
@@ -33,17 +33,8 @@ class WisataController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $wisata = Wisata::create([
-            'nama_wisata' => $request->nama_wisata,
-            'deskripsi' => $request->deskripsi,
-            'lokasi' => $request->lokasi,
-            'kategori_wisata' => $request->kategori_wisata,
-            'rating_rata_rata' => $request->rating_rata_rata,
-            'fasilitas' => $request->fasilitas,
-            'harga_tiket' => $request->harga_tiket,
-            'jam_operasional' => $request->jam_operasional
-        ]);
-        return new BaseResource(true, 'wisata berhasil ditambahkan!', $wisata);
+        $wisata = Wisata::create($request->all());
+        return new WisataResource(true, 'Data berhasil ditambahkan!', $wisata);
     }
 
     public function show($id)
@@ -57,7 +48,7 @@ class WisataController extends Controller
             ], 404);
         }
 
-        return new BaseResource(true, 'detail wisata', $wisata);
+        return new WisataResource(true, 'detail wisata', $wisata);
     }
 
     public function update(Request $request, $id)
@@ -88,7 +79,7 @@ class WisataController extends Controller
 
         $wisata->update($request->all());
 
-        return new BaseResource(true, 'wisata berhasil diupdate', $wisata);
+        return new WisataResource(true, 'wisata berhasil diupdate', $wisata);
     }
 
     public function destroy($id)
@@ -104,6 +95,6 @@ class WisataController extends Controller
 
         $wisata->delete();
 
-        return new BaseResource(true, 'wisata berhasil dihapus', $wisata);
+        return new WisataResource(true, 'wisata berhasil dihapus', $wisata);
     }
 }
