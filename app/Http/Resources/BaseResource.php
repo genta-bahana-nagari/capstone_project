@@ -5,6 +5,8 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+// Conflict disini bro, pas manggil resource, kebetulan WisataResource isinya sama.
+
 class BaseResource extends JsonResource
 {
     public $status;

@@ -16,9 +16,15 @@ class Wisata extends Model
         'deskripsi',
         'lokasi',
         'kategori_wisata',
-        'rating_rata_rata',
+        'rating',
+        'gambar',
         'fasilitas',
         'harga_tiket',
+        'hari_operasional',
         'jam_operasional'
     ];
+
+    public function kategori() {
+        return $this->belongsTo(Kategori::class);
+    }
 }

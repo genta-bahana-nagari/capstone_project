@@ -8,3 +8,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('/wisata', App\Http\Controllers\Api\WisataController::class);
+Route::apiResource('/kategori', App\Http\Controllers\Api\KategoriController::class);

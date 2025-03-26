@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string('nama_wisata');
             $table->text('deskripsi')->nullable();
             $table->string('lokasi');
-            $table->string('kategori_wisata');
-            $table->decimal('rating_rata_rata', 3, 2)->default(0.0);
+            $table->foreignId('kategori_id')->constrained('kategori')->cascadeOnDelete();
+            $table->decimal('rating', 3, 2)->default(0);
+            $table->string('gambar')->nullable();
             $table->text('fasilitas')->nullable();
-            $table->decimal('harga_tiket', 10)->nullable();
+            $table->decimal('harga_tiket', 10);
+            $table->string('hari_operasional');
             $table->string('jam_operasional');
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tempat_wisata');
     }
 };
