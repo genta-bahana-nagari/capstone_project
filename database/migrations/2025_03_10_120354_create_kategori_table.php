@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recomendations', function (Blueprint $table) {
+        Schema::create('kategori', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('wisata_id')->constrained('wisata')->onDelete('cascade');
-            $table->decimal('score', 5, 2); // Rekomendasi dari ML
+            $table->string('kategori');
+            $table->text('deskripsi_kategori');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recomendations');
+        Schema::dropIfExists('kategoris');
     }
 };

@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tempat_wisata', function (Blueprint $table) {
+        Schema::create('wisata', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->text('deskripsi');
+            $table->string('nama_wisata');
+            $table->text('deskripsi')->nullable();
             $table->string('lokasi');
+            $table->foreignId('kategori_id')->constrained('kategori')->cascadeOnDelete();
             $table->decimal('rating', 3, 2)->default(0);
-            $table->string('thumbnail')->nullable();
-            $table->json('gambar')->nullable();
-            $table->json('fasilitas')->nullable();
-            $table->decimal('harga_tiket', 10, 2)->nullable();
-            $table->string('hari_operasional')->nullable();
-            $table->string('jam_operasional')->nullable();
+            $table->string('gambar')->nullable();
+            $table->text('fasilitas')->nullable();
+            $table->decimal('harga_tiket', 10);
+            $table->string('hari_operasional');
+            $table->string('jam_operasional');
             $table->timestamps();
         });
     }
