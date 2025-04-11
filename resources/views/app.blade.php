@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>NusaExplore API</title>
+    <title>NusaExplore BE</title>
   </head>
   <body>
-    <h1>NusaExplore API</h1>
+    <h1>NusaExplore BE</h1>
   </body>
 </html>
