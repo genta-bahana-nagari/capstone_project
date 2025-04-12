@@ -75,17 +75,18 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-        try {
-            JWTAuth::invalidate($request->token);
+        $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
+
+        if ($removeToken) {
             return response()->json([
                 'success' => true,
-                'message' => 'User logged out successfully'
+                'message' => 'You have been successfully logged out'
             ], 200);
-        } catch (JWTException $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Sorry, user cannot be logged out'
-            ], 500);
         }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong'
+        ], 500);
     }
 }
