@@ -21,6 +21,12 @@ class DatabaseSeeder extends Seeder
         
         // User::factory(10)->create();
 
+        $superadmin = User::factory()->create([
+            'name' => 'Super Admin User',
+            'email' => 'superadmin@example.com',
+            'password' => Hash::make('12345678')
+        ])->assignRole('superadmin');
+
         $admin = User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
@@ -30,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'name' => 'User',
             'email' => 'user@example.com',
+            'password' => Hash::make('12345678')
         ])->assignRole('user');
     }
 }
