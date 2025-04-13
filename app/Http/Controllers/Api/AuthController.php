@@ -91,4 +91,55 @@ class AuthController extends Controller
             'message' => 'Something went wrong'
         ], 500);
     }
+
+    public function updateProfile(Request $request) {
+        $user = auth()->user();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class.',email,'.$user->id,
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }   
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User updated successfully',
+            'user' => $user
+        ], 200);
+    }
+
+    public function updatePassword(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required|string|min:8',
+            'new_password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        if (!Hash::check($request->old_password, auth()->user()->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'The provided password was incorrect.'
+            ], 422);
+        }
+
+        auth()->user()->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Password updated successfully'
+        ], 200);
+    }
 }
